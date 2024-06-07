@@ -1,24 +1,24 @@
 ﻿namespace Lab1;
 
 // Объявляем интерфейс Stationery, который описывает базовые свойства всех письменных принадлежностей
-public interface Stationery
+public interface IStationery
 {
     // Объявляем свойство Price типа decimal для хранения цены
     decimal Price { get; set; }
 
     // Объявляем свойство Manufacturer типа string для хранения производителя
-    string Manufacturer { get; set; } 
+    string Manufacturer { get; set; }
 }
 
 // Объявляем абстрактный класс Pen, который наследует интерфейс Stationery и представляет общие свойства для всех типов ручек
-public abstract class Pen : Stationery
+public abstract class Pen : IStationery
 {
     public decimal Price { get; set; }
     public string Manufacturer { get; set; }
     public string LineColor { get; set; }
 
     // Объявляем конструктор класса Pen, инициализирующий свойства Price, Manufacturer и LineColor
-    public Pen(decimal price, string manufacturer, string lineColor) 
+    public Pen(decimal price, string manufacturer, string lineColor)
     {
 
         // Присваиваем значение параметра price свойству Price
@@ -28,12 +28,12 @@ public abstract class Pen : Stationery
         Manufacturer = manufacturer;
 
         // Присваиваем значение параметра lineColor свойству LineColor
-        LineColor = lineColor; 
+        LineColor = lineColor;
     }
 }
 
 // Объявляем класс GelPen, который наследует класс Pen и представляет гелиевую ручку
-public class GelPen : Pen 
+public class GelPen : Pen
 {
 
     // Объявляем свойство GelMass типа double для хранения массы геля в ручке
@@ -43,9 +43,9 @@ public class GelPen : Pen
     public GelPen(decimal price, string manufacturer, string lineColor, double gelMass)
 
         // Вызываем конструктор базового класса Pen, передавая значения price, manufacturer и lineColor
-        : base(price, manufacturer, lineColor) 
+        : base(price, manufacturer, lineColor)
     {
-        GelMass = gelMass; 
+        GelMass = gelMass;
     }
 }
 
@@ -60,14 +60,14 @@ public class BallpointPen : Pen
     public BallpointPen(decimal price, string manufacturer, string lineColor, bool replaceableCartridges)
 
         // Вызываем конструктор базового класса Pen, передавая значения price, manufacturer и lineColor
-        : base(price, manufacturer, lineColor) 
+        : base(price, manufacturer, lineColor)
     {
         ReplaceableCartridges = replaceableCartridges;
     }
 }
 
 // Объявляем класс Pencil, который реализует интерфейс Stationery и представляет простой карандаш
-public class Pencil : Stationery 
+public class Pencil : IStationery
 {
     public decimal Price { get; set; }
     public string Manufacturer { get; set; }
@@ -76,14 +76,14 @@ public class Pencil : Stationery
     public int Length { get; set; }
 
     // Объявляем конструктор класса Pencil, инициализирующий свойства price, manufacturer, hardness, lineColor и length
-    public Pencil(decimal price, string manufacturer, string hardness, string lineColor, int length) 
+    public Pencil(decimal price, string manufacturer, string hardness, string lineColor, int length)
     {
 
         Price = price;
         Manufacturer = manufacturer;
         Hardness = hardness;
         LineColor = lineColor;
-        Length = length; 
+        Length = length;
     }
 }
 
@@ -96,54 +96,54 @@ public class Marker : Pen
     public Marker(decimal price, string manufacturer, string lineColor, int lineWidth)
 
         // Вызываем конструктор базового класса Pen, передавая значения price, manufacturer и lineColor
-        : base(price, manufacturer, lineColor) 
+        : base(price, manufacturer, lineColor)
     {
-        LineWidth = lineWidth; 
+        LineWidth = lineWidth;
     }
 }
 
 // Объявляем класс Notebook, который реализует интерфейс Stationery и представляет тетрадь
-public class Notebook : Stationery 
+public class Notebook : IStationery
 {
-    public decimal Price { get; set; } 
-    public string Manufacturer { get; set; } 
+    public decimal Price { get; set; }
+    public string Manufacturer { get; set; }
     public string Ruling { get; set; }
     public int PageCount { get; set; }
 
     // Объявляем конструктор класса Notebook, инициализирующий свойства price, manufacturer, ruling и pageCount
-    public Notebook(decimal price, string manufacturer, string ruling, int pageCount) 
+    public Notebook(decimal price, string manufacturer, string ruling, int pageCount)
     {
-        Price = price; 
-        Manufacturer = manufacturer; 
-        Ruling = ruling; 
-        PageCount = pageCount; 
+        Price = price;
+        Manufacturer = manufacturer;
+        Ruling = ruling;
+        PageCount = pageCount;
     }
 }
 
 // Объявляем класс WritingSupplies
-public class WritingSupplies 
+public class WritingSupplies
 {
     // Объявляем приватное поле supplies типа List<Stationery> для хранения списка письменных принадлежностей
-    private List<Stationery> supplies = new List<Stationery>();
+    private List<IStationery> supplies = new List<IStationery>();
 
     // Объявляем метод AddSupply
-    public void AddSupply(Stationery supply) 
+    public void AddSupply(IStationery supply)
     {
         // Добавляем переданную письменную принадлежность в список supplies
-        supplies.Add(supply); 
+        supplies.Add(supply);
     }
 
     // Объявляем метод GetTotalSuppliesCount
-    public int GetTotalSuppliesCount() 
+    public int GetTotalSuppliesCount()
     {
         // Возвращаем количество элементов в списке supplies
-        return supplies.Count; 
+        return supplies.Count;
     }
     // Объявляем метод GetTotalPrice
-    public decimal GetTotalPrice() 
+    public decimal GetTotalPrice()
     {
         // Возвращаем сумму цен всех элементов в списке supplies, используя тип Sum()
-        return supplies.Sum(s => s.Price); 
+        return supplies.Sum(s => s.Price);
     }
 }
 
